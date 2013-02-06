@@ -1,33 +1,70 @@
-var shadow = function()
+var shadow = function(parent,shape,rangeMin,rangeMax)
 {
-	this.x = ourShip.x - 30;
+	//parameters
+	//parent class
+	this.parent = parent;
+	//desired shape of shadow
+	this.shape = shape;
+	//defines the parents max & min Y values
+	this.rangeMin = rangeMin;
+	this.rangeMax = rangeMax;
+
+	//position & size
+	this.x = this.parent.x;
 	this.y = 700;
-	this.maxWidth = 66;
-	this.w = 0;
-	this.h = 0;
+	this.w;
+	this.h;
+
+	//max width & height
+	this.maxWidth = this.parent.w;
+	this.maxHeight = this.parent.h * 0.2;
+
+	//other 
 	this.opacity = 1;
+};
 
-}
+shadow.prototype.draw = function(ctx)
+{
+	//calculate current % of parent of total range of movement on the y axis
+	var parentRatio = ((this.parent.y-(this.parent.h/2))- this.rangeMin)/(this.rangeMax - this.rangeMin);
 
-shadow.prototype.draw = function(ctx) {
+	//set the shadow sizes based on the above ratio
+	this.w = parentRatio*this.maxWidth;
+	this.h = parentRatio*this.maxHeight;
+	this.opacity = parentRatio*.8;
 
-	var shipRatio = ourShip.y/canvas.height;
-
-	this.w = shipRatio*this.maxWidth;
-	this.h = shipRatio*100*.05;
-	this.opacity = shipRatio * .5;
-
+	//set fill style
 	ctx.fillStyle ="rgba(0,0,0,"+this.opacity.toFixed(2)+")";
 
-	ctx.beginPath();
-	ctx.moveTo(this.x, this.y - this.h / 2);
-	ctx.lineTo(this.x + this.w, this.y);
-	ctx.lineTo(this.x, this.y + this.h /2);
-	ctx.closePath();
-	ctx.fill();
+	//draw shadow based on desired shape
+	switch(this.shape)
+	{
+		case "triangle":
+			ctx.beginPath();
+			ctx.moveTo(this.x, this.y - this.h / 2);
+			ctx.lineTo(this.x + this.w, this.y);
+			ctx.lineTo(this.x, this.y + this.h /2);
+			ctx.closePath();
+			ctx.fill();
+			break;
+		case "-triangle":
+			ctx.beginPath();
+			ctx.moveTo(this.x, this.y - this.h / 2);
+			ctx.lineTo(this.x - this.w, this.y);
+			ctx.lineTo(this.x, this.y + this.h /2);
+			ctx.closePath();
+			ctx.fill();
+			break;
+		case "square":
+			ctx.fillRect(this.x - this.w /2, this.y - this.h /2, this.w, this.h);
+			break;
+	}
+	
 	
 };
 
-shadow.prototype.move = function(first_argument) {
-	this.x = ourShip.x;
+shadow.prototype.move = function()
+{
+	//align shadow to parent's x pos
+	this.x = this.parent.x;
 };

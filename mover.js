@@ -4,6 +4,6 @@ var mover = function()
 	ourStars.move();
 	ourShip.move();
 	ourOrdnance.move();
-	ourShadow.move();
+	ourEnemies.move();
 
 }

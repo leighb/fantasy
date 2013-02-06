@@ -7,7 +7,7 @@ window.onload = function()
 	canvas.width = W;
 	canvas.height = H;
 
-	var fps = 33;
+	var fps = 33;//33;
 
 	var starCount = 100;
 	this.starSpeedQuotient = 0;
@@ -26,19 +26,21 @@ window.onload = function()
   this.keyZ = false;	
 
 	//create all the things
+	this.ourEnemies = new enemies();
 	var ourInput = new input();
 	this.ourOrdnance = new ordnance();
 	this.ourBGs = new backgrounds(starSpeedQuotient);
 	this.ourShip = new ship(shipRotation,shipXScale);
 	this.ourStars = new stars(starCount);
 	this.ourParticles = new particles(particleCount);
-	this.ourShadow = new shadow();
+	//this.ourShadow = new shadow();
 	
 
 	function loop()
 	{
 		draw(ctx);
 		mover();
+		this.ourEnemies.generateEnemies();
   };
 
   setInterval(loop, fps);		

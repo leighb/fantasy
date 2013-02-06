@@ -10,10 +10,15 @@ var ship = function(shipRotation,shipYScale)	{
 	this.maxSpeed = 8;
 	this.angle = shipRotation;
 	this.yScale = shipYScale;
+
+  //create shadow
+  this.shadow = new shadow(this,"triangle",0,canvas.height);
 };
 
 ship.prototype.draw = function(ctx)
 {
+  this.shadow.draw(ctx);
+
   ctx.save();
   ctx.translate(this.x, this.y);
   ctx.rotate(this.convertToRadians(this.angle));
@@ -34,6 +39,8 @@ ship.prototype.draw = function(ctx)
 
 ship.prototype.move = function()
 {
+  this.shadow.move();
+
 	//handle keypresses
   if (keyUp) 
   	this.vy -= this.speed;

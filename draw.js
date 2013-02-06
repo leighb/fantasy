@@ -14,10 +14,13 @@ var draw = function(ctx)
 	ourOrdnance.draw(ctx);
 
 	//draw ships shadow
-	ourShadow.draw(ctx);
+	//ourShadow.draw(ctx);
 	
 	//draw ship
 	ourShip.draw(ctx);
+
+	//draw enemies
+	ourEnemies.draw(ctx);
 
 };
 
