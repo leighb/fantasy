@@ -1,16 +1,12 @@
 var enemy = function()
 {
-	this.size = 50;
 	this.w = 30;
 	this.h = 20;
 
-	this.x = canvas.width + this.size*5;
+	this.x = canvas.width + this.w*5;
 	this.y = (Math.random() * canvas.height) * .9;
 	this.vx = 3;
 	this.ax = 0.3;
-
-	//arm the ship
-	//this.ordnace = new enemyOrdnance(this);
 
 	//create shadow
 	this.shadow = new shadow(this,"-triangle",0,700);
@@ -33,8 +29,6 @@ enemy.prototype.draw = function(ctx)
   ctx.lineTo(this.x, this.y + this.h/2);
   ctx.closePath();
   ctx.fill();
-
-	//ctx.fillRect(this.x - this.size /2, this.y - this.size / 2, this.size, this.size);
 
 	//draw bullets
 	for(var i=0;i<this.bulletArray.length; i++)
@@ -68,7 +62,6 @@ enemy.prototype.move = function(array,index)
 	{
 		this.bulletArray[i].move();
 	}
-
 
 };
 

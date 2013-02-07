@@ -13,9 +13,6 @@ var draw = function(ctx)
 	//draw bullets	
 	ourOrdnance.draw(ctx);
 
-	//draw ships shadow
-	//ourShadow.draw(ctx);
-	
 	//draw ship
 	ourShip.draw(ctx);
 

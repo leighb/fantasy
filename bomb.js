@@ -1,42 +1,75 @@
 var bomb = function()
 {
-	this.vx = 2;
-	this.vy = 3;
+  //position and size;
 	this.x = ourShip.x-10;
 	this.y = ourShip.y+10;
-	this.hitGround = false;
-	this.goingUp = false;
-	this.timer = 100;
-	this.debris = null;
   this.w = 15;
   this.h = 15;
 
-  //create shadow
+  //speed
+  this.vx = 2;
+  this.vy = 3;
+
+  //bounce variables
+	this.hitGround = false;
+	this.goingUp = false;
+	
+  //bomb timer
+  this.timer = 40;
+  //remove timer
+  this.timer2 = 180;
+  this.debris = null;
+
+  //colour
+  this.color = "rgba(255,255,255,";
+  this.opacity = 1;
+
+  //shadow
   this.shadow = new shadow(this,"square",0,700);
 };
 
-bomb.prototype.draw = function(ctx)
+bomb.prototype.draw = function(ctx,array,num)
 {
-  //draw shadow
-  this.shadow.draw(ctx);
+  if(this.timer<0)
+  {
+    //explode
 
-	ctx.fillStyle = "white";
-	ctx.fillRect(this.x - this.w/2, this.y - this.h/2, this.w, this.h);
-	if(this.debris) {
-  	this.debris.draw(ctx);
+    //start timer2 countdown
+    this.timer2 --;
+
+    if(this.timer2<0)
+    {
+      this.remove(array,num)
+    }
+
+    if(this.debris) {
+      this.debris.draw(ctx);
+    }
+  }
+  else
+  {
+    //draw shadow
+    this.shadow.draw(ctx);
+
+    //draw bomb
+    ctx.fillStyle = this.color+this.opacity+")";
+    ctx.fillRect(this.x - this.w/2, this.y - this.h/2, this.w, this.h);
   }
 };
 
-bomb.prototype.move = function(array,num)
+bomb.prototype.move = function()
 {
   //move bomb shadow
   this.shadow.move();
 
+  //move the bomb
 	this.x += this.vx;
 	this.y += this.vy;
 
-	this.timer --;
+	//timer countdown
+  this.timer --;
 
+  //BOUNCE
 	//check if hitting the ground
 	if (this.y > canvas.height - 30)
 	{
@@ -74,25 +107,29 @@ bomb.prototype.move = function(array,num)
   else
   {
     //free fall mode
-  	//this.vx *= 0.99;
 		this.vy *= 1.1;
   }
 
   if (this.timer < 0) {
-  	//this.explode(array,num);
+  	this.explode();
+  }
+
+  if(this.debris) {
+    this.debris.move();
   }
 
 
 };
 
-bomb.prototype.explode = function(array,num) {
-	//console.log("explode!");
-
+bomb.prototype.explode = function()
+{
 	if(!this.debris) {
 
 		this.debris = new bombDebris(this.x,this.y);
 	}
+};
 
-	//setTimeout(function(){array.splice(num, 1);},1000);
-
+bomb.prototype.remove = function(array,num)
+{
+  array.splice(num, 1);
 };

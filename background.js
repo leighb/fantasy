@@ -9,7 +9,7 @@ var background = function(first,bg1x,bg1w)
 	this.y = 0;
 
 	//other
-	this.speed = 16;
+	this.speed = 1;
 
 	//set up image
 	this.img = new Image();
@@ -22,7 +22,7 @@ var background = function(first,bg1x,bg1w)
 background.prototype.draw = function(ctx)
 {
 	//set global alpha lower to create 'trails'
-	//ctx.globalAlpha = 0.6;
+	ctx.globalAlpha = 0.6;
 	ctx.drawImage(this.img,this.x,this.y, this.w, this.h);
 	//return global alpha to default
 	ctx.globalAlpha = 1.0;
@@ -30,11 +30,8 @@ background.prototype.draw = function(ctx)
 
 background.prototype.move = function(starSpeedQuotient)
 {
-	/*
-	var oldRange = (8 - -8);  
-	var newRange = (5 - 1);  
-	var newSpeed = (((-starSpeedQuotient - -8) * newRange) / oldRange) + 1;
+	var newSpeed = ourUtils.newRange(-10,10,10,20,-starSpeedQuotient);
+
 	this.x -= this.speed*newSpeed;
-	*/
-	this.x -= this.speed;
+
 };

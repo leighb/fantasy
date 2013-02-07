@@ -18,7 +18,7 @@ ordnance.prototype.draw = function(ctx)
 
 	for(var i=0;i<this.bombArray.length; i++)
 	{
-		this.bombArray[i].draw(ctx);		
+		this.bombArray[i].draw(ctx,this.bombArray, i);		
 	}
 };
 
@@ -32,7 +32,7 @@ ordnance.prototype.move = function()
 	//move bombs
 	for(var i=0;i<this.bombArray.length; i++)
 	{
-		this.bombArray[i].move(this.bombArray, i);
+		this.bombArray[i].move();
 	}
 
 	if (keyX)

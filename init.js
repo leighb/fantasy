@@ -26,6 +26,7 @@ window.onload = function()
   this.keyZ = false;	
 
 	//create all the things
+	this.ourUtils = new utils();
 	this.ourEnemies = new enemies();
 	var ourInput = new input();
 	this.ourOrdnance = new ordnance();
