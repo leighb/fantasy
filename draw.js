@@ -19,6 +19,11 @@ var draw = function(ctx)
 	//draw enemies
 	ourEnemies.draw(ctx);
 
+	//draw powerups
+	ourPowerups.draw(ctx);
+	//draw UI
+	ourUI.draw(ctx);
+
 };
 
 	

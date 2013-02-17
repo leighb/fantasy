@@ -1,4 +1,5 @@
-var ship = function(shipRotation,shipYScale)	{
+var ship = function(shipRotation,shipYScale)
+{
 	this.x = canvas.width/2;
 	this.y = canvas.height/2;
 	this.speed = 0.5;
@@ -11,6 +12,8 @@ var ship = function(shipRotation,shipYScale)	{
 	this.angle = shipRotation;
 	this.yScale = shipYScale;
 
+  this.health = 100;
+
   //create shadow
   this.shadow = new shadow(this,"triangle",0,canvas.height);
 };
@@ -22,7 +25,7 @@ ship.prototype.draw = function(ctx)
   ctx.save();
   ctx.translate(this.x, this.y);
   ctx.rotate(this.convertToRadians(this.angle));
-  ctx.translate(-this.x, -this.y);  
+  ctx.translate(-this.x, -this.y);
 
   ctx.fillStyle = "white";//"#a3cfb4";
 

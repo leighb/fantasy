@@ -5,5 +5,6 @@ var mover = function()
 	ourShip.move();
 	ourOrdnance.move();
 	ourEnemies.move();
-
+	ourPowerups.move();
+	ourUI.move();
 }

@@ -1,29 +1,34 @@
-var enemies = function()
+var enemies = function(create)
 {
+	this.create = create;
 	this.enemyArray = [];
+
 };
 
 enemies.prototype.draw = function(ctx)
-{
-	for(var i=0;i < this.enemyArray.length; i++)
-	{
-		this.enemyArray[i].draw(ctx);
+{	
+	if (this.create) {
+		for(var i=0;i < this.enemyArray.length; i++)
+		{
+			this.enemyArray[i].draw(ctx);
+		}
 	}
 };
 
 enemies.prototype.move = function()
 {
-	for(var i=0;i < this.enemyArray.length; i++)
-	{
-		this.enemyArray[i].move(this.enemyArray,i);
+	if (this.create) {
+		for(var i=0;i < this.enemyArray.length; i++)
+		{
+			this.enemyArray[i].move(this.enemyArray,i);
+		}
 	}
 };
 
-enemies.prototype.generateEnemies = function()
+enemies.prototype.generate = function()
 {
-	if (Math.floor(Math.random() * 45) == 5)
+	if (Math.floor(Math.random() * 90) == 5)
 	{
-		//console.log('create enemy');
 		this.enemyArray.push(new enemy());
 	}
 };

@@ -15,8 +15,6 @@ var background = function(first,bg1x,bg1w)
 	this.img = new Image();
 	this.img.ext = ".jpg"
 	this.img.src = 'bg'+ (Math.floor(Math.random()*3)) + this.img.ext;
-
-	//console.log('creating bg @ '+this.x);
 }
 
 background.prototype.draw = function(ctx)

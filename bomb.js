@@ -15,10 +15,10 @@ var bomb = function()
 	this.goingUp = false;
 	
   //bomb timer
-  this.timer = 40;
+  this.timer = ourUtils.rand(40,80);
   //remove timer
   this.timer2 = 180;
-  this.debris = null;
+  this.explosion = null;
 
   //colour
   this.color = "rgba(255,255,255,";
@@ -33,17 +33,18 @@ bomb.prototype.draw = function(ctx,array,num)
   if(this.timer<0)
   {
     //explode
-
     //start timer2 countdown
     this.timer2 --;
 
     if(this.timer2<0)
     {
-      this.remove(array,num)
+      ourUtils.removeFromArray(array,num);
     }
 
-    if(this.debris) {
-      this.debris.draw(ctx);
+    //if explosion exists
+    if(this.explosion) {
+      //move explosion
+      this.explosion.draw(ctx);
     }
   }
   else
@@ -114,8 +115,8 @@ bomb.prototype.move = function()
   	this.explode();
   }
 
-  if(this.debris) {
-    this.debris.move();
+  if(this.explosion) {
+    this.explosion.move();
   }
 
 
@@ -123,13 +124,8 @@ bomb.prototype.move = function()
 
 bomb.prototype.explode = function()
 {
-	if(!this.debris) {
+	if(!this.explosion) {
 
-		this.debris = new bombDebris(this.x,this.y);
+		this.explosion = new explosion(this.x,this.y);
 	}
-};
-
-bomb.prototype.remove = function(array,num)
-{
-  array.splice(num, 1);
 };
